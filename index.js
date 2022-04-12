@@ -137,7 +137,7 @@ async function GetUpdateURL(options) {
     }).then(() => {
         let zip;
         for (i = 0; i < json['assets'].length; i++) {
-            if (json['assets'][i]['name'] === `${options.appName}.zip`) zip = json['assets'][i];
+            if (json['assets'][i]['name'].includes(`${options.appName}`) && json['assets'][i]['name'].includes(`.zip`)) zip = json['assets'][i];
         }
         return zip['browser_download_url'];
     });
