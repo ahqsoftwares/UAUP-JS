@@ -7,7 +7,7 @@ const fs = require('fs');
 
 ////////////////////    GLOBAL VARIABLES    ////////////////////
 //#region GLOBAL VARIABLES
-var app_library = (process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + "/.local/share")) + "\\";
+var app_library = __dirname;
 
 var git_api;
 var new_version = "unknown";
