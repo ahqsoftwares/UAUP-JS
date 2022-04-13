@@ -47,6 +47,9 @@ const defaultOptions = {
     stageTitles: defaultStages
 };
 
+let exec = function(){
+//no app defined
+}
 
 
 
@@ -338,18 +341,15 @@ function CleanUp(options) {
  * Launches the Application
  * @param {defaultOptions} options 
  */
+function execute(func){
+   exec = func;
+}
+
 function LaunchApplication(options) {
     let executablePath = require('path').join(options.appDirectory, options.appExecutableName);
     if (fs.existsSync(executablePath)) {
         updateHeader(options.stageTitles.Launch);
-        let child = require('child_process').exec;
-        child(`"${executablePath}"`, function (err, data) {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log(data.toString());
-        });
+        exec()
     } else {
         console.error(`File Not Found: ${executablePath}`);
         options.forceUpdate = true;
@@ -380,4 +380,4 @@ function GetAppLibrary() {
 }
 //#endregion
 
-module.exports = { Update, CheckForUpdates, GetAppLibrary };
+module.exports = { Update, CheckForUpdates, GetAppLibrary, execute };
