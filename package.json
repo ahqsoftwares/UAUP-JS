@@ -25,6 +25,7 @@
   "homepage": "https://github.com/DcmanProductions/UAUP-JS#readme",
   "dependencies": {
     "adm-zip": "^0.5.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "node-fetch": "latest"
   }
 }
