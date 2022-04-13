@@ -26,6 +26,6 @@
   "dependencies": {
     "adm-zip": "^0.5.1",
     "request": "^2.88.2",
-    "node-fetch": "latest"
+    "node-fetch": "^2"
   }
 }
