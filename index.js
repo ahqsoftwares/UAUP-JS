@@ -44,7 +44,8 @@ const defaultOptions = {
     progressBar: null,
     label: null,
     forceUpdate: false,
-    stageTitles: defaultStages
+    stageTitles: defaultStages,
+    ipc: null,
 };
 
 let exec = function(){
@@ -226,8 +227,10 @@ function updateHeader(value) {
 /**
  * Updates the Application based on the Provided Options
  * @param {defaultOptions} options 
+ * @param {} IPC Renderer
  */
-async function Update(options = defaultOptions) {
+async function Update(options = defaultOptions, ipc) {
+    options.ipc = ipc;
     if (testOptions(options)) {
         options = setOptions(options);
         createDirectories(options);
@@ -341,25 +344,12 @@ function CleanUp(options) {
  * Launches the Application
  * @param {defaultOptions} options 
  */
-function execute(func){
-   exec = func;
-}
-
 function LaunchApplication(options) {
-    let executablePath = require('path').join(options.appDirectory, options.appExecutableName);
-    if (fs.existsSync(executablePath)) {
-        updateHeader(options.stageTitles.Launch);
-        exec()
-    } else {
-        console.error(`File Not Found: ${executablePath}`);
-        options.forceUpdate = true;
-        Update(options);
-        return;
-    }
+    updateHeader(options.stageTitles.Launch);
     setTimeout(() => {
         try {
             // Electron
-            window.close();
+            options.ipc.send("startNewApp")
         } catch (e) {
             // NodeJS
             process.exit(0);
@@ -380,4 +370,4 @@ function GetAppLibrary() {
 }
 //#endregion
 
-module.exports = { Update, CheckForUpdates, GetAppLibrary, execute };
+module.exports = { Update, CheckForUpdates, GetAppLibrary };
